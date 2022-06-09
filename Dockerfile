@@ -23,6 +23,8 @@ COPY main.go main.go
 COPY internal/ internal/
 COPY pkg/ pkg/
 
+USER root
+
 # Build
 RUN CGO_ENABLED=0 \
     GOOS=${TARGETOS} \

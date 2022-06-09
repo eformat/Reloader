@@ -51,6 +51,17 @@ build-image:
 push:
 	docker push ${REPOSITORY_ARCH}
 
+podman-build-image:
+	podman build \
+		--platform ${OS}/${ARCH} \
+		--build-arg GOARCH=$(ARCH) \
+		--build-arg BUILDER_IMAGE=$(BUILDER_IMAGE) \
+		--build-arg BASE_IMAGE=${BASE_IMAGE} \
+		-t "${REPOSITORY_GENERIC}" \
+		--load \
+		-f Dockerfile \
+		.
+
 release: build-image push manifest
 
 release-all:
